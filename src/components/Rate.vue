@@ -8,12 +8,15 @@
   </div>
 </template>
 <script>
-// vue-tiny-rate
 export default {
   props: {
-    value: {type: [Number, String], default: 0}
+    value: {
+      type: [Number, String],
+      default: 0
+    }
   },
   computed: {
+    // 重写宽度 来覆盖下面的☆
     style () {
       return `width:${this.value / 2}em`
     }

@@ -33,6 +33,10 @@
       "selectedIconPath": "static/images/me-active.png"
     }],
     "position": "bottom"
+  },
+  "usingComponents": {
+    "van-button": "../../static/vant/button/index",
+    "van-rate": "../../static/vant/rate/index"
   }
 }
  

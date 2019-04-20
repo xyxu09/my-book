@@ -1,5 +1,5 @@
 
-const host = 'http://localhost:5758'
+const host = 'http://localhost:5759'
 const config = {
   host,
   loginUrl: `${host}/weapp/login`,

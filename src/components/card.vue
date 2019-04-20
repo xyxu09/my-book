@@ -6,7 +6,8 @@
     <div class="detail">
       <div class="row text-primary">
         <div class="right">
-          {{book.rate}} <Rate :value='book.rate'></Rate>
+          {{book.rate}} <van-rate v-model="book.rate" allow-half readonly size='10' style="display: inline-block"/>
+          <!-- <Rate :value='book.rate'></Rate> -->
         </div>
         <div class="left">
           {{book.title}}
@@ -31,14 +32,14 @@
 </template>
 
 <script>
-import Rate from './Rate'
+// import Rate from './Rate.vue'
+
 export default {
-  components: {
-    Rate
-  },
+  // components: {
+  //   Rate
+  // },
   data () {
     return {
-
     }
   },
   props: {
@@ -76,7 +77,7 @@ export default {
     }
     .right{
       float: right;
-      
+      // display: inline-block;
     }
     .left{
       margin-right:80px;

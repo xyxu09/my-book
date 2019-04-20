@@ -84,7 +84,7 @@ koa-weapp-demo
 
 ```javascript
 {
-  port: '5758',                             // 项目启动的端口
+  port: '5759',                             // 项目启动的端口
 
   appId: 'wx00dd00dd00dd00dd',              // 微信小程序 App ID
   appSecret: 'abcdefg',                     // 微信小程序 App Secret
