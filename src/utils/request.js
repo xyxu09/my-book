@@ -15,6 +15,7 @@ export function request (url, data, method, header = {}) {
       },
       success: res => {
         wx.hideLoading()
+        console.log(res)
         if (res.data.code === 0) {
           resolve(res)
         } else {
@@ -22,6 +23,7 @@ export function request (url, data, method, header = {}) {
         }
       },
       fail: function (res) {
+        console.log('fail', res)
         wx.hideLoading()
       },
       complete: function () {

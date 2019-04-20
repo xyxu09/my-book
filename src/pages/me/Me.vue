@@ -11,7 +11,7 @@
         </button>
       </div>
       <YearProgress></YearProgress>
-      <button @click='scanBook' class='btn'>添加图书</button>
+      <button @click='scanBook' class='btn' v-if="userInfo.nickName">添加图书</button>
     </div>
 </template>
 
@@ -19,10 +19,8 @@
 import qcloud from 'wafer2-client-sdk'
 import YearProgress from '@/components/YearProgress'
 import config from '@/config'
+import showModal from '../../utils/index'
 export default {
-  props: {
-
-  },
   components: {
     YearProgress
   },
@@ -34,32 +32,31 @@ export default {
       }
     }
   },
-  created () {
-    // 获取用户信息 判断是否已经授权
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权 不需要弹窗
-          wx.getUserInfo({
-            withCredentials: false, // 是否带上登入信息
-            success: res => {
-              // 必须在授权过的情况下调用该接口
-              this.userInfo = res.userInfo
-              wx.setStorageSync('userinfo', res.userInfo)
-            }
-          })
-        }
-      }
-    })
-  },
+  // created () {
+  //   // 获取用户信息 判断是否已经授权
+  //   wx.getSetting({
+  //     success: res => {
+  //       if (res.authSetting['scope.userInfo']) {
+  //         // 已经授权 不需要弹窗
+  //         wx.getUserInfo({
+  //           withCredentials: false, // 是否带上登入信息
+  //           success: res => {
+  //             // 必须在授权过的情况下调用该接口
+  //             this.userInfo = res.userInfo
+  //             wx.setStorageSync('userinfo', res.userInfo)
+  //           }
+  //         })
+  //       }
+  //     }
+  //   })
+  // },
   methods: {
     doLogin () {
       let user = wx.getStorageSync('userinfo')
       if (!user) {
         wx.showLoading({
           title: 'Loading...', // 提示的内容,
-          mask: true, // 显示透明蒙层，防止触摸穿透,
-          success: res => {}
+          mask: true
         })
         // wx.login({
         //   success: res => {
@@ -100,23 +97,28 @@ export default {
       }
     },
     async addBook (isbn) {
-      console.log('调用豆瓣的api来添加book')
+      console.log('+++++++++++++++++', this.userInfo)
+      const res = await this.$request('/weapp/addbook', {
+        isbn,
+        openid: this.userInfo.openId
+      }, 'POST')
+      console.log(res)
+      showModal('添加成功', `${res.title}添加成功`)
     },
     scanBook () {
-      console.log('扫描添加图书')
       wx.scanCode({
         // onlyFromCamera: true, // 只允许通过相机扫码
-        success (res) {
-          console.log(res)
+        success: (res) => {
+          if (res.result) {
+            this.addBook(res.result)
+          }
         }
       })
-      this.addBook()
     }
   },
   // 小程序的onShow钩子
   onShow () {
     let userInfo = wx.getStorageSync('userinfo')
-    console.log('userInfo', userInfo)
     if (userInfo) {
       this.userInfo = userInfo
     }

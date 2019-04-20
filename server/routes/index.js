@@ -35,4 +35,7 @@ router.post('/message', controllers.message.post)
 // 自己用来处理登入的
 router.get('/myLogin', controllers.myLogin)
 
+// 添加图书
+router.post('/addbook', controllers.addbook)
+
 module.exports = router
