@@ -1,40 +1,34 @@
 <template>
   <div>
-    books页面 主页面
+    <!-- <div v-for="book in books" :key="book.id">{{book.title}}</div> -->
+    <Card v-for="(item, index) in books" :key="index" :book='item'>
+    </Card>
   </div>
 </template>
 
 <script>
+import Card from '../../components//card'
 export default {
-  props: {
-
+  components: {
+    Card
   },
   data () {
     return {
-
+      books: []
     }
   },
-  computed: {
-
-  },
-  created () {
-
-  },
   mounted () {
-
-  },
-  watch: {
-
+    this.getBookList()
   },
   methods: {
-
-  },
-  components: {
-
+    async getBookList () {
+      const bookList = await this.$request('/weapp/booklist')
+      this.books = bookList.data.data.list
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-
+  
 </style>
