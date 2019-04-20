@@ -7,7 +7,6 @@
       <div class="row text-primary">
         <div class="right">
           {{book.rate}} <van-rate v-model="book.rate" allow-half readonly size='10' style="display: inline-block"/>
-          <!-- <Rate :value='book.rate'></Rate> -->
         </div>
         <div class="left">
           {{book.title}}
@@ -21,7 +20,7 @@
       </div>
       <div class="row">
         <div class="right">
-           <!-- {{book.user_info.nickName}} -->
+           {{book.user_info.nickName}}
         </div>
         <div class="left">
          {{book.publisher}}
@@ -32,12 +31,7 @@
 </template>
 
 <script>
-// import Rate from './Rate.vue'
-
 export default {
-  // components: {
-  //   Rate
-  // },
   data () {
     return {
     }
@@ -77,7 +71,6 @@ export default {
     }
     .right{
       float: right;
-      // display: inline-block;
     }
     .left{
       margin-right:80px;
