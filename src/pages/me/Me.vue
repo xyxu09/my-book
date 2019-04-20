@@ -16,9 +16,9 @@
 </template>
 
 <script>
-// import qcloud from 'wafer2-client-sdk'
+import qcloud from 'wafer2-client-sdk'
 import YearProgress from '@/components/YearProgress'
-// import config from '@/config'
+import config from '@/config'
 export default {
   props: {
 
@@ -61,42 +61,42 @@ export default {
           mask: true, // 显示透明蒙层，防止触摸穿透,
           success: res => {}
         })
-        wx.login({
-          success: res => {
-            const code = res.code
-            if (code) {
-              console.log(code)
-              // 向后台发送请求
-              const url = '/weapp/myLogin'
-              const data = { code }
-              this.$request(url, data)
-                .then(res => {
-                  console.log(res)
-                })
-            } else {
-              console.log('登入失败')
-            }
-          }
-        })
-        // qcloud.setLoginUrl(config.loginUrl)
-        // qcloud.login({
+        // wx.login({
         //   success: res => {
-        //     qcloud.request({
-        //       url: config.userUrl,
-        //       login: true,
-        //       success: (userRes) => {
-        //         console.log(userRes)
-        //         wx.hideLoading()
-        //         this.userInfo = userRes.data.data
-        //         wx.setStorageSync('userinfo', userRes.data.data)
-        //       }
-        //     })
-        //   },
-        //   fail: err => {
-        //     wx.hideLoading()
-        //     console.error(err)
+        //     const code = res.code
+        //     if (code) {
+        //       console.log(code)
+        //       // 向后台发送请求
+        //       const url = '/weapp/myLogin'
+        //       const data = { code }
+        //       this.$request(url, data)
+        //         .then(res => {
+        //           console.log(res)
+        //         })
+        //     } else {
+        //       console.log('登入失败')
+        //     }
         //   }
         // })
+        qcloud.setLoginUrl(config.loginUrl)
+        qcloud.login({
+          success: res => {
+            qcloud.request({
+              url: config.userUrl,
+              login: true,
+              success: (userRes) => {
+                console.log(userRes)
+                wx.hideLoading()
+                this.userInfo = userRes.data.data
+                wx.setStorageSync('userinfo', userRes.data.data)
+              }
+            })
+          },
+          fail: err => {
+            wx.hideLoading()
+            console.error(err)
+          }
+        })
       }
     },
     async addBook (isbn) {
