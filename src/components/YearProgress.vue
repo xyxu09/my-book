@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="progressbar"> 
     <!-- <van-progress
       :percentage="75"
       pivot-color="#7232dd"

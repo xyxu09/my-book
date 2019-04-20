@@ -34,24 +34,49 @@ export default {
       }
     }
   },
+  created () {
+    // 获取用户信息 判断是否已经授权
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权 不需要弹窗
+          wx.getUserInfo({
+            withCredentials: false, // 是否带上登入信息
+            success: res => {
+              // 必须在授权过的情况下调用该接口
+              this.userInfo = res.userInfo
+              wx.setStorageSync('userinfo', res.userInfo)
+            }
+          })
+        }
+      }
+    })
+  },
   methods: {
     doLogin () {
       let user = wx.getStorageSync('userinfo')
       if (!user) {
+        wx.showLoading({
+          title: 'Loading...', // 提示的内容,
+          mask: true, // 显示透明蒙层，防止触摸穿透,
+          success: res => {}
+        })
         qcloud.setLoginUrl(config.loginUrl)
         qcloud.login({
           success: res => {
             qcloud.request({
               url: config.userUrl,
               login: true,
-              success (userRes) {
+              success: (userRes) => {
                 console.log(userRes)
+                wx.hideLoading()
+                this.userInfo = userRes.data.data
                 wx.setStorageSync('userinfo', userRes.data.data)
-                this.userinfo = userRes.data.data
               }
             })
           },
           fail: err => {
+            wx.hideLoading()
             console.error(err)
           }
         })

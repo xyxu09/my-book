@@ -7,7 +7,7 @@ export default {
 </script>
 
 <style>
-.container {
+/* .container {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@ export default {
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-}
+} */
 .text-footer{
   text-align: center;
   font-size: 12px;
