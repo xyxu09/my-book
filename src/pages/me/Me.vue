@@ -1,18 +1,17 @@
 <template>
     <div class="container">
-      <div class="userinfo" @click="doLogin">
-        <img :src="userinfo.avatarUrl" alt="">
-        <p>{{userinfo.nickName}}</p>
-        <!-- <p v-if="userinfo.nickName">{{userinfo.nickName}}</p> -->
-        <!-- <button 
-           v-if="!userinfo.nickName"
+      <div class="userinfo">
+        <img :src="userInfo.avatarUrl" alt="">
+        <p v-if="userInfo.nickName">{{userInfo.nickName}}</p>
+        <button 
+           v-if="!userInfo.nickName"
            open-type="getUserInfo" 
            lang="zh_CN" 
-           bindgetuserinfo="doLogin">获取用户信息
-        </button> -->
+           @getuserinfo="doLogin">获取用户信息
+        </button>
       </div>
       <YearProgress></YearProgress>
-      <button  @click='scanBook' class='btn'>添加图书</button>
+      <button @click='scanBook' class='btn'>添加图书</button>
     </div>
 </template>
 
@@ -20,7 +19,6 @@
 import qcloud from 'wafer2-client-sdk'
 import YearProgress from '@/components/YearProgress'
 import config from '@/config'
-import showSuccess from '@/utils' // 改用vant封装好的
 export default {
   props: {
 
@@ -30,46 +28,31 @@ export default {
   },
   data () {
     return {
-      userinfo: {
+      userInfo: {
         avatarUrl: '../../static/images/unlogin.png',
-        nickName: '点击登入'
+        nickName: ''
       }
     }
   },
   methods: {
     doLogin () {
       let user = wx.getStorageSync('userinfo')
-      // 不是第一次登入 可以使用token来标识
-      // storage中的状态数据 考虑使用store来管理
-      // wx.getUserInfo 接口后续将不再出现授权弹窗
-      if (user) {
-        qcloud.setLoginUrl(config.loginUrl)
-        qcloud.loginWithCode({
-          success: res => {
-            console.log(res)
-            this.userInfo = res
-            wx.setStorageSync('userinfo', res)
-            showSuccess('登录成功')
-            // this.Toast.success('登录成功')
-          },
-          fail: err => {
-            console.error(err)
-            // this.Toast.fail('登录错误', err.message)
-          }
-        })
-      } else {
+      if (!user) {
         qcloud.setLoginUrl(config.loginUrl)
         qcloud.login({
           success: res => {
-            console.log(res)
-            this.userInfo = res
-            wx.setStorageSync('userinfo', res)
-            showSuccess('登录成功')
-            // this.Toast.success('登录成功')
+            qcloud.request({
+              url: config.userUrl,
+              login: true,
+              success (userRes) {
+                console.log(userRes)
+                wx.setStorageSync('userinfo', userRes.data.data)
+                this.userinfo = userRes.data.data
+              }
+            })
           },
           fail: err => {
             console.error(err)
-            // this.Toast.fail('登录错误', err.message)
           }
         })
       }
@@ -91,6 +74,7 @@ export default {
   // 小程序的onShow钩子
   onShow () {
     let userInfo = wx.getStorageSync('userinfo')
+    console.log('userInfo', userInfo)
     if (userInfo) {
       this.userInfo = userInfo
     }
