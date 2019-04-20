@@ -19,7 +19,7 @@
 import qcloud from 'wafer2-client-sdk'
 import YearProgress from '@/components/YearProgress'
 import config from '@/config'
-import showModal from '../../utils/index'
+// import showModal from '../../utils/index'
 export default {
   components: {
     YearProgress
@@ -97,13 +97,30 @@ export default {
       }
     },
     async addBook (isbn) {
-      console.log('+++++++++++++++++', this.userInfo)
-      const res = await this.$request('/weapp/addbook', {
-        isbn,
-        openid: this.userInfo.openId
-      }, 'POST')
-      console.log(res)
-      showModal('添加成功', `${res.title}添加成功`)
+      try {
+        const res = await this.$request('/weapp/addbook', {
+          isbn,
+          openid: this.userInfo.openId
+        }, 'POST')
+        console.log('addbook', res)
+        if (res.data.code === 0) {
+          wx.showModal({
+            title: '添加成功',
+            content: `${res.data.data.title}添加成功`
+          })
+        } else {
+        // 这里的信息最好是后台返回的
+          wx.showModal({
+            title: '添加失败', // 提示的标题,
+            content: '已经存在相同的书籍'
+          })
+        }
+      } catch (err) {
+        wx.showModal({
+          title: '添加失败', // 提示的标题,
+          content: '已经存在相同的书籍'
+        })
+      }
     },
     scanBook () {
       wx.scanCode({

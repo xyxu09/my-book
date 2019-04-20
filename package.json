@@ -24,8 +24,10 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "mpvue": "^2.0.0",
     "node-sass": "^4.11.0",
+    "request": "^2.88.0",
     "sass": "^1.19.0",
     "sass-loader": "^7.1.0",
     "vant": "^1.6.15",
