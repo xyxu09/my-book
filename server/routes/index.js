@@ -32,4 +32,7 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 
+// 自己用来处理登入的
+router.get('/myLogin', controllers.myLogin)
+
 module.exports = router
