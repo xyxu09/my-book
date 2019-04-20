@@ -22,9 +22,19 @@ export default {
   },
   methods: {
     async getBookList () {
+      wx.showNavigationBarLoading()
       const bookList = await this.$request('/weapp/booklist')
       this.books = bookList.data.data.list
+      wx.hideNavigationBarLoading()
+      wx.stopPullDownRefresh()
     }
+  },
+  onPullDownRefresh () {
+    this.getBookList()
+    console.log('小程序的下拉刷新')
+  },
+  onReachBottom () {
+    console.log('上拉加载')
   }
 }
 </script>
