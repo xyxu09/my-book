@@ -9,7 +9,7 @@ const CONF = {
     wxMessageToken: 'weixinmsgtoken',
     networkTimeout: 30000,
 
-    port: '5757',
+    port: '5758',
     rootPathname: '',
 
     // 微信小程序 App ID

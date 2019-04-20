@@ -21,6 +21,7 @@
         "mkdir-p": "0.0.7",
         "mysql": "^2.14.1",
         "pify": "^2.3.0",
+        "request-promise": "^4.2.4",
         "wafer-node-sdk": "^1.4.0"
     },
     "devDependencies": {
