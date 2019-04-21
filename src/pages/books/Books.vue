@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Card from '../../components//card'
+import Card from '@/components/Card'
 import TopSwiper from '@/components/TopSwiper'
 export default {
   components: {
