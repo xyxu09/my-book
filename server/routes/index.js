@@ -45,4 +45,6 @@ router.get('/top', controllers.top)
 router.get('/bookdetail', controllers.bookdetail)
 // 获取评论列表
 router.get('/commentlist', controllers.commentlist)
+// 新增评论
+router.post('/addcomment', controllers.addcomment)
 module.exports = router

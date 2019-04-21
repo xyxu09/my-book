@@ -38,6 +38,11 @@
   "usingComponents": {
     "van-button": "../../static/vant/button/index",
     "van-rate": "../../static/vant/rate/index"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc":"你的位置信息将用于小程序位置接口的效果展示"
+    }
   }
 }
  

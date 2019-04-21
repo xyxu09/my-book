@@ -2,7 +2,7 @@
     <div class="comment-list">
       <div class="page-title" v-if="comments.length">评论</div>
       <div class="comment" v-for="comment in comments" :key="comment.id" @click="handleClick(comment)">
-        <div class="uesr">
+        <div class="user">
           <div class="inline">
             <img :src="comment.image" class="avatar" mode='aspectFit' />
             {{comment.title}}
