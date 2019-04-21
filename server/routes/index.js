@@ -41,7 +41,8 @@ router.post('/addbook', controllers.addbook)
 router.get('/booklist', controllers.booklist)
 // 获取图书列表页面的 轮播图
 router.get('/top', controllers.top)
-
 // 获取图书详情
 router.get('/bookdetail', controllers.bookdetail)
+// 获取评论列表
+router.get('/commentlist', controllers.commentlist)
 module.exports = router
