@@ -1,4 +1,5 @@
 <template>
+<a :href="detailUrl">
   <div class="book-card">
     <div class="thumb" @click.stop='preview'>
       <img :src="book.image" class="img" mode="aspectFix">
@@ -28,6 +29,7 @@
       </div>
     </div>
   </div>
+</a>
 </template>
 
 <script>
@@ -40,6 +42,19 @@ export default {
     book: {
       type: Object,
       default: {}
+    }
+  },
+  computed: {
+    detailUrl () {
+      return '/pages/detail/main?id=' + this.book.id
+    }
+  },
+  methods: {
+    preview () {
+      wx.previewImage({
+        current: this.book.image,
+        urls: [this.book.image]
+      })
     }
   }
 }
