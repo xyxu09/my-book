@@ -18,7 +18,24 @@ export function formatTime (date) {
   return `${t1} ${t2}`
 }
 
+export function showModal (title, content) {
+  wx.showModal({
+    title,
+    content,
+    showCancel: false
+  })
+}
+
+export function showSuccess (text) {
+  wx.showToast({
+    title: text,
+    icon: 'success'
+  })
+}
+
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  showSuccess,
+  showModal
 }
