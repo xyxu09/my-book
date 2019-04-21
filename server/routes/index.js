@@ -32,4 +32,19 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 
+// 自己用来处理登入的
+router.get('/myLogin', controllers.myLogin)
+
+// 添加图书
+router.post('/addbook', controllers.addbook)
+// 获取图书列表
+router.get('/booklist', controllers.booklist)
+// 获取图书列表页面的 轮播图
+router.get('/top', controllers.top)
+// 获取图书详情
+router.get('/bookdetail', controllers.bookdetail)
+// 获取评论列表
+router.get('/commentlist', controllers.commentlist)
+// 新增评论
+router.post('/addcomment', controllers.addcomment)
 module.exports = router

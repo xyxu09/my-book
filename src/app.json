@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/me/main",
     "pages/books/main",
-    "pages/comments/main"
+    "pages/me/main",
+    "pages/comments/main",
+    "pages/detail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -33,6 +34,15 @@
       "selectedIconPath": "static/images/me-active.png"
     }],
     "position": "bottom"
+  },
+  "usingComponents": {
+    "van-button": "../../static/vant/button/index",
+    "van-rate": "../../static/vant/rate/index"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc":"你的位置信息将用于小程序位置接口的效果展示"
+    }
   }
 }
  
